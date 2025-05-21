@@ -1,7 +1,10 @@
 # Local .terraform directories
+# Contains provider plugins and backend config, big
 .terraform/
 
 # .tfstate files
+# Includes credentials
+# Necessary to lock and run tf commands
 *.tfstate
 *.tfstate.*
 
