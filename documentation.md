@@ -3,7 +3,7 @@
 - [Installation/setup](#installationsetup)
 - [Infrastructure as Code](#infrastructure-as-code)
   - [Terraform](#terraform-1)
-- [Syntax](#syntax)
+- [AWS Syntax](#aws-syntax)
   - [Create EC2 Instance](#create-ec2-instance)
   - [Create Security Group](#create-security-group)
     - [CIDR Blocks](#cidr-blocks)
@@ -29,7 +29,7 @@ Two types:
 * Uses Hashicorp Configuration Language, declarative
 * Cloud agnostic, uses providers which act as interface with cloud's API
 
-# Syntax
+# AWS Syntax
 ## Create EC2 Instance
 ```
 resource "aws_instance" [instance identifier] {
@@ -47,24 +47,26 @@ resource "aws_instance" [instance identifier] {
 ```
 resource "aws_security_group" [security group identifier] {
   name = [security group identifier]
-
-  [ingress/egress] {
-    from_port   = [source port]
-    to_port     = [destination port]
-    protocol    = [protocol]
-    cidr_blocks = [cidr blocks]
-  }
-
-  [other ingress/egress rules...]
   
   tags = {
     Name = [security group name]
   }
 }
+
+resource "aws_vpc_security_group_ingress_rule" [ingress rule name] {
+  security_group_id = [security group identifier]
+  from_port = [start of port range]
+  to_port = [end of port range]
+  ip_protocol = [protocol]
+  cidr_ipv4 = [cidr blocks]
+}
+
+[other ingress/egress rules...]
+  
 ```
 ### CIDR Blocks
 * Anywhere: 0.0.0.0/0
-* Local host: 127.0.0.0/8
+* Local host: 127.0.0.1/8
 
 ## Create Key Pair
 ```

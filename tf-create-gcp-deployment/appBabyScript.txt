@@ -1,0 +1,11 @@
+#!/bin/bash
+
+sleep 12
+export DB_HOST=mongodb://${internalIp}/posts
+
+cd spartaAppDeployment/app
+
+
+mkdir a
+
+pm2 start app.js
